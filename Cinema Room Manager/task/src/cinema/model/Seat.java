@@ -19,4 +19,8 @@ public class Seat {
             this.status = 'S';
         }
     }
+
+    public boolean isBooked() {
+        return status == 'S';
+    }
 }

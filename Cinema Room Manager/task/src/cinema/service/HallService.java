@@ -30,8 +30,14 @@ public class HallService {
         System.out.println();
     }
 
-    public void buyTicket(int row, int col) {
-        hall.getSeat(row, col).changeStatus();
+    public boolean buyTicket(int row, int col) {
+        Seat seat = hall.getSeat(row, col);
+        if (seat.isBooked()) {
+            return false;
+        } else {
+            hall.getSeat(row, col).changeStatus();
+            return true;
+        }
     }
 
     int getNumberOfSeats() {
