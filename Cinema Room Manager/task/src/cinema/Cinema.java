@@ -3,6 +3,7 @@ package cinema;
 import cinema.model.Hall;
 import cinema.service.HallService;
 import cinema.service.PriceService;
+import cinema.util.InterfaceUtil;
 
 import java.util.Scanner;
 
@@ -20,16 +21,33 @@ public class Cinema {
         HallService hallService = new HallService(new Hall(rows, cols));
         PriceService priceService = new PriceService(hallService);
 
-        hallService.printSeatsState();
+        startInterface(sc, hallService, priceService);
 
-        System.out.println("Enter a row number:");
-        int row = sc.nextInt();
-        System.out.println("Enter a seat number in that row:");
-        int col = sc.nextInt();
+        sc.close();
+    }
 
-        priceService.printPriceOfTicket(row);
-        hallService.buyTicket(row, col);
+    private static void startInterface(Scanner sc, HallService hallService, PriceService priceService) {
+        int userInput;
+        do {
+            InterfaceUtil.printInterface();
+            userInput = sc.nextInt();
 
-        hallService.printSeatsState();
+            switch (userInput) {
+                case 1:
+                    hallService.printSeatsState();
+                    break;
+                case 2: {
+                    System.out.println("Enter a row number:");
+                    int row = sc.nextInt();
+                    System.out.println("Enter a seat number in that row:");
+                    int col = sc.nextInt();
+
+                    priceService.printPriceOfTicket(row);
+                    hallService.buyTicket(row, col);
+                    break;
+                }
+            }
+
+        } while (userInput != 0);
     }
 }
