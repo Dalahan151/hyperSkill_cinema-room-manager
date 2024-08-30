@@ -8,11 +8,6 @@ public class PriceService {
         this.hallService = hallService;
     }
 
-    public void printProfit() {
-        System.out.println("Total income:");
-        System.out.println("$" + calculateTotalProfit());
-    }
-
     public void printPriceOfTicket(int row) {
         System.out.println("\nTicket price: $" + calculateCostOfTicket(row) + "\n");
     }
@@ -33,15 +28,28 @@ public class PriceService {
         }
     }
 
-    private int calculateTotalProfit() {
+    public int getTotalIncome() {
         int totalProfit = 0;
 
         for (int i = 1; i <= hallService.getRows(); i++) {
-            for (int j = 1; j <= hallService.getCols(); j++) {
-                totalProfit += calculateCostOfTicket(i);
-            }
+            int rowCost = calculateCostOfTicket(i);
+            totalProfit += rowCost * hallService.getCols();
         }
 
         return totalProfit;
+    }
+
+    public int getCurrentIncome() {
+        int currentProfit = 0;
+
+        for (int i = 1; i <= hallService.getRows(); i++) {
+            int rowCost = calculateCostOfTicket(i);
+            for (int j = 1; j <= hallService.getCols(); j++) {
+                if (!hallService.isSeatAvailable(i, j))
+                    currentProfit += rowCost;
+            }
+        }
+
+        return currentProfit;
     }
 }
