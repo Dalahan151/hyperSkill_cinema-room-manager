@@ -21,6 +21,6 @@ public class Seat {
     }
 
     public boolean isBooked() {
-        return status == 'S';
+        return status == 'B';
     }
 }

@@ -44,11 +44,11 @@ public class HallService {
         return hall.getNumberOfSeats();
     }
 
-    int getRows() {
+    public int getRows() {
         return hall.getRows();
     }
 
-    int getCols() {
+    public int getCols() {
         return hall.getCols();
     }
 }

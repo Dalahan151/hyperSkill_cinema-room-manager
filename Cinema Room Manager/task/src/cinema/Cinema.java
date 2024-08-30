@@ -9,6 +9,11 @@ import java.util.Scanner;
 
 public class Cinema {
 
+    private static final int SHOW_SEATS = 1;
+    private static final int BUY_TICKET = 2;
+    private static final int SHOW_STATISTICS = 3;
+    private static final int EXIT = 0;
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -33,21 +38,42 @@ public class Cinema {
             userInput = sc.nextInt();
 
             switch (userInput) {
-                case 1:
+                case SHOW_SEATS:
                     hallService.printSeatsState();
                     break;
-                case 2: {
-                    System.out.println("Enter a row number:");
-                    int row = sc.nextInt();
-                    System.out.println("Enter a seat number in that row:");
-                    int col = sc.nextInt();
-
-                    priceService.printPriceOfTicket(row);
-                    hallService.buyTicket(row, col);
+                case BUY_TICKET:
+                    buyTicket(sc, hallService, priceService);
                     break;
-                }
+                case SHOW_STATISTICS:
+                    show_statistics(hallService, priceService);
+                    break;
             }
 
-        } while (userInput != 0);
+        } while (userInput != EXIT);
+    }
+
+    private static void buyTicket(Scanner sc, HallService hallService, PriceService priceService) {
+        int row, col;
+        do {
+            InterfaceUtil.printEnterRow();
+            row = sc.nextInt();
+            InterfaceUtil.printEnterSeat();
+            col = sc.nextInt();
+
+            if ((row < 1 || row > hallService.getRows()) || (col < 1 || col > hallService.getCols())) {
+                InterfaceUtil.printWrongInput();
+                continue;
+            }
+            if (hallService.buyTicket(row, col)) {
+                priceService.printPriceOfTicket(row);
+                break;
+            } else {
+                InterfaceUtil.printTicketHasAlreadyBeenPurchased();
+            }
+        } while (true);
+    }
+
+    private static void show_statistics(HallService hallService, PriceService priceService) {
+
     }
 }
