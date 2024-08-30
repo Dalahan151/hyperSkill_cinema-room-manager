@@ -24,4 +24,20 @@ public class InterfaceUtil {
     public static void printEnterSeat() {
         System.out.println("Enter a seat number in that row:");
     }
+
+    public static void printTotalIncome(int totalIncome) {
+        System.out.println("Total income: $" + totalIncome + "\n");
+    }
+
+    public static void printCurrentIncome(int currentIncome) {
+        System.out.println("Current income: $" + currentIncome);
+    }
+
+    public static void printNumberOfPurchasedTickets(int number) {
+        System.out.println("\nNumber of purchased tickets: " + number);
+    }
+
+    public static void printPercentage(double percentage) {
+        System.out.printf("Percentage: %.2f%%\n", percentage);
+    }
 }

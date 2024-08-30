@@ -74,6 +74,15 @@ public class Cinema {
     }
 
     private static void show_statistics(HallService hallService, PriceService priceService) {
+        int purchasedTickets = hallService.getNumberOfPurchasedTickets();
+        float percentage = hallService.getPercentageOfPurchasedTickets();
+        int currentIncome = priceService.getCurrentIncome();
+        int totalIncome = priceService.getTotalIncome();
 
+
+        InterfaceUtil.printNumberOfPurchasedTickets(purchasedTickets);
+        InterfaceUtil.printPercentage(percentage);
+        InterfaceUtil.printCurrentIncome(currentIncome);
+        InterfaceUtil.printTotalIncome(totalIncome);
     }
 }

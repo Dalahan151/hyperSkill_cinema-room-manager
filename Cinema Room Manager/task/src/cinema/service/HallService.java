@@ -31,13 +31,17 @@ public class HallService {
     }
 
     public boolean buyTicket(int row, int col) {
-        Seat seat = hall.getSeat(row, col);
-        if (seat.isBooked()) {
-            return false;
-        } else {
+        if (isSeatAvailable(row, col)) {
             hall.getSeat(row, col).changeStatus();
             return true;
+        } else {
+            return false;
         }
+    }
+
+    public boolean isSeatAvailable(int row, int col) {
+        Seat seat = hall.getSeat(row, col);
+        return !seat.isBooked();
     }
 
     int getNumberOfSeats() {
@@ -50,5 +54,13 @@ public class HallService {
 
     public int getCols() {
         return hall.getCols();
+    }
+
+    public int getNumberOfPurchasedTickets() {
+        return hall.getNumberOfBookedSeats();
+    }
+
+    public float getPercentageOfPurchasedTickets() {
+        return ((float) hall.getNumberOfBookedSeats() / hall.getNumberOfSeats() * 100);
     }
 }

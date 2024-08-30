@@ -1,5 +1,7 @@
 package cinema.model;
 
+import java.util.Arrays;
+
 public class Hall {
     private final Seat[][] seats;
     private final int rows;
@@ -34,5 +36,13 @@ public class Hall {
                 seats[i][j] = new Seat();
             }
         }
+    }
+
+    public int getNumberOfBookedSeats() {
+        return Arrays.stream(seats)
+                .mapToInt(row -> (int) Arrays.stream(row)
+                        .filter(Seat::isBooked)
+                        .count())
+                .sum();
     }
 }
